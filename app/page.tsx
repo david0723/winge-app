@@ -1,56 +1,77 @@
-import { DeployButton } from "@/components/deploy-button";
-import { EnvVarWarning } from "@/components/env-var-warning";
 import { AuthButton } from "@/components/auth-button";
-import { Hero } from "@/components/hero";
 import { ThemeSwitcher } from "@/components/theme-switcher";
-import { ConnectSupabaseSteps } from "@/components/tutorial/connect-supabase-steps";
-import { SignUpUserSteps } from "@/components/tutorial/sign-up-user-steps";
-import { hasEnvVars } from "@/lib/utils";
+import { Plane, Heart } from "lucide-react";
 import Link from "next/link";
-import { Suspense } from "react";
+import { Button } from "@/components/ui/button";
 
 export default function Home() {
   return (
-    <main className="min-h-screen flex flex-col items-center">
-      <div className="flex-1 w-full flex flex-col gap-20 items-center">
-        <nav className="w-full flex justify-center border-b border-b-foreground/10 h-16">
+    <main className="min-h-screen flex flex-col items-center bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-slate-50">
+      <div className="flex-1 w-full flex flex-col items-center">
+        {/* Navbar */}
+        <nav className="w-full flex justify-center border-b border-b-slate-200 dark:border-b-slate-800 h-16 bg-white dark:bg-slate-900">
           <div className="w-full max-w-5xl flex justify-between items-center p-3 px-5 text-sm">
-            <div className="flex gap-5 items-center font-semibold">
-              <Link href={"/"}>Next.js Supabase Starter</Link>
-              <div className="flex items-center gap-2">
-                <DeployButton />
-              </div>
+            <div className="flex gap-2 items-center font-bold text-lg tracking-tight">
+              <Plane className="w-6 h-6 text-blue-600" />
+              <span>Winge</span>
             </div>
-            {!hasEnvVars ? (
-              <EnvVarWarning />
-            ) : (
-              <Suspense>
-                <AuthButton />
-              </Suspense>
-            )}
+            <div>
+              <AuthButton />
+            </div>
           </div>
         </nav>
-        <div className="flex-1 flex flex-col gap-20 max-w-5xl p-5">
-          <Hero />
-          <main className="flex-1 flex flex-col gap-6 px-4">
-            <h2 className="font-medium text-xl mb-4">Next steps</h2>
-            {hasEnvVars ? <SignUpUserSteps /> : <ConnectSupabaseSteps />}
-          </main>
+
+        {/* Hero Section */}
+        <div className="flex-1 flex flex-col justify-center items-center gap-8 max-w-3xl p-6 text-center w-full mt-10 md:mt-20">
+          <div className="flex items-center justify-center p-4 bg-blue-100 dark:bg-blue-900 rounded-full mb-4">
+            <Heart className="w-12 h-12 text-blue-600 dark:text-blue-400" />
+          </div>
+          <h1 className="text-5xl md:text-7xl font-extrabold tracking-tighter leading-tight">
+            Join the <span className="text-blue-600">Mile High Club</span>... before boarding.
+          </h1>
+          <p className="text-lg md:text-xl text-slate-600 dark:text-slate-400 max-w-xl mx-auto">
+            Connect with fellow passengers on your exact flight. Find your connection at 30,000 feet. It's like Hinge, but for flights.
+          </p>
+          
+          <div className="flex flex-col sm:flex-row gap-4 w-full justify-center mt-6">
+            <Button asChild size="lg" className="text-lg px-8 py-6 w-full sm:w-auto rounded-full font-semibold">
+              <Link href="/auth/sign-up">Start Boarding</Link>
+            </Button>
+            <Button asChild variant="outline" size="lg" className="text-lg px-8 py-6 w-full sm:w-auto rounded-full font-semibold">
+              <Link href="/auth/login">I already have a ticket</Link>
+            </Button>
+          </div>
         </div>
 
-        <footer className="w-full flex items-center justify-center border-t mx-auto text-center text-xs gap-8 py-16">
+        {/* Features/Tongue-in-cheek section */}
+        <div className="w-full bg-white dark:bg-slate-900 py-16 px-6 mt-16 border-t border-slate-200 dark:border-slate-800">
+          <div className="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-10 text-center">
+            <div className="flex flex-col items-center gap-3">
+              <div className="text-4xl mb-2">✈️</div>
+              <h3 className="font-bold text-xl">Enter your flight</h3>
+              <p className="text-slate-500">Just type your flight number and date. No confusing boarding pass scans.</p>
+            </div>
+            <div className="flex flex-col items-center gap-3">
+              <div className="text-4xl mb-2">👀</div>
+              <h3 className="font-bold text-xl">Browse the Cabin</h3>
+              <p className="text-slate-500">See who else is flying with you. Send a like if you see someone interesting.</p>
+            </div>
+            <div className="flex flex-col items-center gap-3">
+              <div className="text-4xl mb-2">💺</div>
+              <h3 className="font-bold text-xl">Seat Reveal</h3>
+              <p className="text-slate-500">Mutual match? We reveal your seat numbers and open a private chat to meet at the gate.</p>
+            </div>
+          </div>
+        </div>
+
+        {/* Footer */}
+        <footer className="w-full flex flex-col md:flex-row items-center justify-between border-t border-slate-200 dark:border-slate-800 p-6 text-sm text-slate-500 bg-slate-50 dark:bg-slate-950">
           <p>
-            Powered by{" "}
-            <a
-              href="https://supabase.com/?utm_source=create-next-app&utm_medium=template&utm_term=nextjs"
-              target="_blank"
-              className="font-bold hover:underline"
-              rel="noreferrer"
-            >
-              Supabase
-            </a>
+            © 2024 Winge. A very serious app.
           </p>
-          <ThemeSwitcher />
+          <div className="mt-4 md:mt-0 flex items-center gap-4">
+            <ThemeSwitcher />
+          </div>
         </footer>
       </div>
     </main>
