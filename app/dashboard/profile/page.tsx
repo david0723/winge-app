@@ -42,25 +42,9 @@ export default async function ProfilePage() {
       </div>
 
       <div className="space-y-6">
-        <div className="bg-white dark:bg-slate-900 p-4 rounded-xl border border-slate-200 dark:border-slate-800">
-          <h3 className="text-sm font-semibold text-slate-500 mb-2 uppercase tracking-wider">Flight Info</h3>
-          <div className="flex justify-between items-center py-2 border-b border-slate-100 dark:border-slate-800">
-            <span className="font-medium">Flight Number</span>
-            <span className="text-slate-600 dark:text-slate-400">{profile.flight_number}</span>
-          </div>
-          <div className="flex justify-between items-center py-2 border-b border-slate-100 dark:border-slate-800">
-            <span className="font-medium">Date</span>
-            <span className="text-slate-600 dark:text-slate-400">{profile.flight_date}</span>
-          </div>
-          <div className="flex justify-between items-center py-2">
-            <span className="font-medium">Seat</span>
-            <span className="text-slate-600 dark:text-slate-400">{profile.seat_number}</span>
-          </div>
-        </div>
-
-        <div className="bg-white dark:bg-slate-900 p-4 rounded-xl border border-slate-200 dark:border-slate-800">
-          <h3 className="text-sm font-semibold text-slate-500 mb-2 uppercase tracking-wider">Bio</h3>
-          <p className="text-slate-600 dark:text-slate-400">{profile.bio || "No bio set."}</p>
+        <div className="bg-white dark:bg-slate-900 p-6 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm text-center">
+          <h3 className="text-xs font-bold text-slate-400 mb-3 uppercase tracking-widest">Your Icebreaker</h3>
+          <p className="text-slate-800 dark:text-slate-200 font-medium text-lg leading-relaxed">{profile.bio || "No bio set. Add one to get more matches!"}</p>
         </div>
       </div>
 

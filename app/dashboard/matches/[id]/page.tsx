@@ -30,13 +30,28 @@ export default async function MatchChatPage({ params }: { params: { id: string }
   // Fetch target profile
   const { data: targetProfile } = await supabase
     .from('profiles')
-    .select('id, name, avatar_url, seat_number')
+    .select('id, name, avatar_url')
     .eq('id', targetUserId)
+    .single();
+
+  // Fetch target seat number for this flight
+  const { data: targetFlight } = await supabase
+    .from('user_flights')
+    .select('seat_number')
+    .eq('user_id', targetUserId)
+    .eq('flight_number', match.flight_number)
+    .eq('flight_date', match.flight_date)
     .single();
 
   if (!targetProfile) {
     return <div>Error loading match profile.</div>;
   }
+
+  // Combine profile and seat number
+  const fullProfile = {
+    ...targetProfile,
+    seat_number: targetFlight?.seat_number || 'Unknown',
+  };
 
   // Fetch initial messages
   const { data: initialMessages } = await supabase
@@ -50,7 +65,7 @@ export default async function MatchChatPage({ params }: { params: { id: string }
       <ChatInterface 
         matchId={matchId}
         currentUserId={user.id}
-        targetProfile={targetProfile}
+        targetProfile={fullProfile}
         initialMessages={initialMessages || []}
       />
     </div>
