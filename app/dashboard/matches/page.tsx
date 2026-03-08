@@ -68,15 +68,18 @@ export default async function MatchesPage() {
     .in('user_id', matchedUserIds);
 
   return (
-    <div className="flex-1 w-full flex flex-col max-w-lg mx-auto p-4 h-screen pt-8">
-      <div className="flex justify-between items-center mb-6">
-        <h1 className="text-3xl font-bold tracking-tight">Messages</h1>
-        <div className="text-xs font-semibold bg-red-100 text-red-600 px-3 py-1 rounded-full flex items-center gap-1">
-          <Clock className="w-3 h-3" /> Auto-deletes
+    <div className="flex-1 w-full flex flex-col max-w-lg mx-auto p-6 h-[100dvh] pt-12 bg-black text-white relative overflow-hidden">
+      {/* Background Glow */}
+      <div className="absolute top-0 right-0 w-[400px] h-[400px] bg-purple-900/20 blur-[100px] rounded-full pointer-events-none -z-10" />
+
+      <div className="flex justify-between items-center mb-10">
+        <h1 className="text-4xl font-black tracking-tighter">Matches</h1>
+        <div className="text-xs font-bold bg-white/10 text-zinc-300 px-3 py-1.5 rounded-full flex items-center gap-1.5 backdrop-blur-md border border-white/5">
+          <Clock className="w-3.5 h-3.5" /> 24h Auto-delete
         </div>
       </div>
       
-      <div className="flex flex-col gap-4 pb-20">
+      <div className="flex flex-col gap-4 pb-32 overflow-y-auto hide-scrollbar z-10">
         {matches.map((match) => {
           const targetUserId = match.user_id === user.id ? match.target_id : match.user_id;
           const profile = profiles?.find(p => p.id === targetUserId);
@@ -91,22 +94,22 @@ export default async function MatchesPage() {
           if (!profile) return null;
 
           return (
-            <Link key={match.id} href={`/dashboard/matches/${match.id}`} className="flex items-center justify-between p-4 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl hover:border-blue-300 dark:hover:border-blue-700 transition-all shadow-sm group">
+            <Link key={match.id} href={`/dashboard/matches/${match.id}`} className="flex items-center justify-between p-5 bg-zinc-900/40 backdrop-blur-xl border border-white/5 rounded-[2rem] hover:bg-zinc-800/60 transition-all shadow-[0_10px_30px_rgba(0,0,0,0.2)] group">
               <div className="flex items-center gap-4">
-                <Avatar className="w-14 h-14 border-2 border-white dark:border-slate-800 shadow-sm">
-                  <AvatarImage src={profile.avatar_url} />
-                  <AvatarFallback className="text-lg bg-blue-100 text-blue-700">{profile.name?.charAt(0) || '?'}</AvatarFallback>
+                <Avatar className="w-16 h-16 border border-white/10 shadow-sm">
+                  <AvatarImage src={profile.avatar_url} className="object-cover" />
+                  <AvatarFallback className="text-xl bg-blue-900 text-blue-200 font-bold">{profile.name?.charAt(0) || '?'}</AvatarFallback>
                 </Avatar>
                 <div>
-                  <h3 className="font-bold text-lg leading-tight group-hover:text-blue-600 transition-colors">{profile.name}</h3>
-                  <div className="flex items-center gap-1.5 text-xs text-slate-500 font-medium mt-1 bg-slate-100 dark:bg-slate-800 w-max px-2 py-0.5 rounded-md">
-                    <Plane className="w-3 h-3" /> 
-                    {match.flight_number} • Seat {targetFlight?.seat_number || 'Hidden'}
+                  <h3 className="font-black text-xl leading-tight text-white mb-1">{profile.name}</h3>
+                  <div className="flex items-center gap-1.5 text-xs text-zinc-400 font-bold mt-1 bg-black/40 w-max px-2.5 py-1 rounded-md border border-white/5">
+                    <Plane className="w-3.5 h-3.5 text-blue-400" /> 
+                    {match.flight_number} • Seat <span className="text-purple-400 ml-0.5">{targetFlight?.seat_number || 'Hidden'}</span>
                   </div>
                 </div>
               </div>
-              <div className="p-3 bg-blue-50 dark:bg-blue-900/30 text-blue-600 rounded-full group-hover:bg-blue-600 group-hover:text-white transition-colors">
-                <MessageCircle className="w-5 h-5" />
+              <div className="p-3.5 bg-white/5 text-blue-400 rounded-2xl group-hover:bg-blue-600 group-hover:text-white transition-colors">
+                <MessageCircle className="w-6 h-6" />
               </div>
             </Link>
           );

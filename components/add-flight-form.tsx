@@ -50,38 +50,38 @@ export function AddFlightForm({ userId }: { userId: string }) {
   return (
     <Dialog open={isOpen} onOpenChange={setIsOpen}>
       <DialogTrigger asChild>
-        <Button className="w-full gap-2 rounded-full py-6 text-md font-semibold bg-blue-600 hover:bg-blue-700">
-          <Plus className="w-5 h-5" /> Add a Flight
+        <Button className="w-full gap-2 rounded-full py-7 text-lg font-bold bg-blue-600 hover:bg-blue-500 text-white shadow-[0_0_30px_rgba(37,99,235,0.4)] transition-all hover:scale-105 border-0">
+          <Plus className="w-6 h-6" /> Add a Flight
         </Button>
       </DialogTrigger>
-      <DialogContent className="sm:max-w-md">
+      <DialogContent className="sm:max-w-md bg-zinc-950/80 backdrop-blur-3xl border border-white/10 rounded-[2.5rem] p-8 text-white shadow-[0_0_50px_rgba(0,0,0,0.8)]">
         <DialogHeader>
-          <DialogTitle className="flex items-center gap-2 text-xl">
-            <Plane className="w-6 h-6 text-blue-600" />
+          <DialogTitle className="flex items-center gap-3 text-2xl font-black tracking-tight">
+            <Plane className="w-7 h-7 text-blue-500" />
             Check In to a Flight
           </DialogTitle>
-          <DialogDescription>
+          <DialogDescription className="text-zinc-400 font-medium text-base">
             Enter your upcoming flight details to see who else is boarding.
           </DialogDescription>
         </DialogHeader>
-        <form onSubmit={handleSave} className="space-y-4 mt-4">
-          <div className="space-y-2">
-            <Label htmlFor="flightNumber">Flight Number</Label>
-            <Input id="flightNumber" required value={flightNumber} onChange={e => setFlightNumber(e.target.value.toUpperCase())} placeholder="e.g. AA123" />
+        <form onSubmit={handleSave} className="space-y-5 mt-6">
+          <div className="space-y-2.5">
+            <Label htmlFor="flightNumber" className="text-zinc-300 font-bold ml-1">Flight Number</Label>
+            <Input id="flightNumber" required value={flightNumber} onChange={e => setFlightNumber(e.target.value.toUpperCase())} placeholder="e.g. AA123" className="bg-black/50 border-white/10 text-white rounded-2xl h-14 px-5 focus-visible:ring-blue-500 focus-visible:ring-2 focus-visible:border-transparent transition-all font-medium text-lg uppercase" />
           </div>
 
-          <div className="space-y-2">
-            <Label htmlFor="flightDate">Flight Date</Label>
-            <Input id="flightDate" type="date" required value={flightDate} onChange={e => setFlightDate(e.target.value)} />
+          <div className="space-y-2.5">
+            <Label htmlFor="flightDate" className="text-zinc-300 font-bold ml-1">Flight Date</Label>
+            <Input id="flightDate" type="date" required value={flightDate} onChange={e => setFlightDate(e.target.value)} className="bg-black/50 border-white/10 text-white rounded-2xl h-14 px-5 focus-visible:ring-blue-500 focus-visible:ring-2 focus-visible:border-transparent transition-all font-medium" />
           </div>
 
-          <div className="space-y-2">
-            <Label htmlFor="seatNumber">Your Seat Number</Label>
-            <Input id="seatNumber" required value={seatNumber} onChange={e => setSeatNumber(e.target.value)} placeholder="e.g. 12B" />
-            <p className="text-xs text-slate-500">Only revealed to mutual matches.</p>
+          <div className="space-y-2.5">
+            <Label htmlFor="seatNumber" className="text-zinc-300 font-bold ml-1">Your Seat Number</Label>
+            <Input id="seatNumber" required value={seatNumber} onChange={e => setSeatNumber(e.target.value.toUpperCase())} placeholder="e.g. 12B" className="bg-black/50 border-white/10 text-white rounded-2xl h-14 px-5 focus-visible:ring-blue-500 focus-visible:ring-2 focus-visible:border-transparent transition-all font-medium text-lg uppercase" />
+            <p className="text-xs text-purple-400 font-bold ml-1">Only revealed to mutual matches.</p>
           </div>
 
-          <Button type="submit" className="w-full mt-6 bg-blue-600 hover:bg-blue-700" disabled={isLoading}>
+          <Button type="submit" className="w-full h-14 rounded-full bg-white text-black hover:bg-zinc-200 font-bold text-lg mt-8 transition-all" disabled={isLoading}>
             {isLoading ? "Adding..." : "Add Flight"}
           </Button>
         </form>

@@ -89,37 +89,40 @@ export function ChatInterface({
   };
 
   return (
-    <div className="flex flex-col h-full bg-slate-50 dark:bg-slate-950">
+    <div className="flex flex-col h-[100dvh] bg-black text-white relative overflow-hidden">
+      {/* Background Glow */}
+      <div className="absolute top-0 left-0 w-full h-[300px] bg-purple-900/10 blur-[100px] pointer-events-none -z-10" />
+
       {/* Header */}
-      <div className="bg-white dark:bg-slate-900 border-b border-slate-200 dark:border-slate-800 p-4 flex items-center gap-4 fixed top-0 w-full z-10 max-w-lg left-1/2 -translate-x-1/2 shadow-sm">
-        <Button variant="ghost" size="icon" onClick={() => router.back()} className="rounded-full">
-          <ArrowLeft className="w-5 h-5" />
+      <div className="bg-black/60 backdrop-blur-2xl border-b border-white/10 p-4 pt-6 flex items-center gap-4 fixed top-0 w-full z-30 max-w-lg left-1/2 -translate-x-1/2 shadow-sm">
+        <Button variant="ghost" size="icon" onClick={() => router.back()} className="rounded-full hover:bg-white/10 text-white">
+          <ArrowLeft className="w-6 h-6" />
         </Button>
-        <Avatar className="w-10 h-10">
-          <AvatarImage src={targetProfile.avatar_url} />
-          <AvatarFallback>{targetProfile.name?.charAt(0)}</AvatarFallback>
+        <Avatar className="w-12 h-12 border border-white/10 shadow-sm">
+          <AvatarImage src={targetProfile.avatar_url} className="object-cover" />
+          <AvatarFallback className="bg-zinc-800 text-zinc-400 font-bold">{targetProfile.name?.charAt(0)}</AvatarFallback>
         </Avatar>
         <div>
-          <h2 className="font-bold text-lg leading-tight">{targetProfile.name}</h2>
-          <p className="text-xs text-blue-600 dark:text-blue-400 font-medium">Seat: {targetProfile.seat_number}</p>
+          <h2 className="font-black text-xl leading-tight tracking-tight">{targetProfile.name}</h2>
+          <p className="text-xs text-purple-400 font-bold tracking-wider uppercase mt-0.5">Seat {targetProfile.seat_number}</p>
         </div>
       </div>
 
       {/* Messages Area */}
-      <div className="flex-1 overflow-y-auto pt-20 pb-20 p-4 max-w-lg mx-auto w-full hide-scrollbar">
-        <div className="flex flex-col gap-3">
+      <div className="flex-1 overflow-y-auto pt-28 pb-32 p-5 max-w-lg mx-auto w-full hide-scrollbar z-10">
+        <div className="flex flex-col gap-4">
           {messages.map((msg) => {
             const isMe = msg.sender_id === currentUserId;
             return (
               <div key={msg.id} className={`flex ${isMe ? 'justify-end' : 'justify-start'}`}>
                 <div 
-                  className={`max-w-[75%] p-3 rounded-2xl ${
+                  className={`max-w-[75%] p-4 rounded-[1.5rem] shadow-sm ${
                     isMe 
-                      ? 'bg-blue-600 text-white rounded-br-none' 
-                      : 'bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-slate-100 rounded-bl-none'
+                      ? 'bg-blue-600 text-white rounded-br-sm' 
+                      : 'bg-zinc-900/80 backdrop-blur-md border border-white/5 text-white rounded-bl-sm'
                   }`}
                 >
-                  <p className="text-sm">{msg.content}</p>
+                  <p className="text-[15px] font-medium leading-snug">{msg.content}</p>
                 </div>
               </div>
             );
@@ -129,16 +132,16 @@ export function ChatInterface({
       </div>
 
       {/* Input Area */}
-      <div className="bg-white dark:bg-slate-900 border-t border-slate-200 dark:border-slate-800 p-4 fixed bottom-0 w-full max-w-lg left-1/2 -translate-x-1/2 z-10 pb-6">
-        <form onSubmit={handleSendMessage} className="flex gap-2">
+      <div className="bg-black/60 backdrop-blur-2xl border-t border-white/10 p-5 fixed bottom-0 w-full max-w-lg left-1/2 -translate-x-1/2 z-30 pb-safe">
+        <form onSubmit={handleSendMessage} className="flex gap-3">
           <Input 
             value={newMessage}
             onChange={(e) => setNewMessage(e.target.value)}
-            placeholder="Type a message..." 
-            className="flex-1 rounded-full bg-slate-100 dark:bg-slate-800 border-none focus-visible:ring-1 focus-visible:ring-blue-500"
+            placeholder="Send a message..." 
+            className="flex-1 rounded-full bg-zinc-900/80 border border-white/10 text-white h-14 px-6 focus-visible:ring-blue-500 focus-visible:ring-2 focus-visible:border-transparent transition-all font-medium"
           />
-          <Button type="submit" size="icon" className="rounded-full bg-blue-600 hover:bg-blue-700 text-white shrink-0">
-            <Send className="w-4 h-4" />
+          <Button type="submit" size="icon" className="w-14 h-14 rounded-full bg-blue-600 hover:bg-blue-500 text-white shrink-0 transition-transform hover:scale-105 shadow-[0_0_20px_rgba(37,99,235,0.4)]">
+            <Send className="w-5 h-5" />
           </Button>
         </form>
       </div>
