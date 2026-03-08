@@ -68,11 +68,23 @@ export default async function DashboardPage() {
 
                 <div className="p-8 pb-10">
                   <div className="flex justify-between items-start">
-                    <div>
-                      <div className="text-sm font-bold text-blue-400 uppercase tracking-widest mb-1">Flight No.</div>
-                      <div className="text-5xl font-black text-white tracking-tighter">{flight.flight_number}</div>
+                    <div className="flex flex-col gap-3">
+                      <div className="text-sm font-bold text-blue-400 uppercase tracking-widest flex items-center gap-2">
+                        {flight.airline || 'Flight'}
+                        {flight.departure_airport && <span className="text-zinc-600">• {flight.flight_number}</span>}
+                      </div>
+                      
+                      {flight.departure_airport && flight.arrival_airport ? (
+                        <div className="flex items-center gap-3">
+                           <div className="text-5xl font-black text-white tracking-tighter">{flight.departure_airport}</div>
+                           <Plane className="w-6 h-6 text-zinc-600" />
+                           <div className="text-5xl font-black text-white tracking-tighter">{flight.arrival_airport}</div>
+                        </div>
+                      ) : (
+                        <div className="text-5xl font-black text-white tracking-tighter">{flight.flight_number}</div>
+                      )}
                     </div>
-                    <div className="w-12 h-12 rounded-full bg-white/5 flex items-center justify-center border border-white/10 group-hover:bg-blue-600 group-hover:border-blue-500 transition-colors">
+                    <div className="w-12 h-12 rounded-full bg-white/5 flex items-center justify-center border border-white/10 group-hover:bg-blue-600 group-hover:border-blue-500 transition-colors shrink-0">
                       <ChevronRight className="w-6 h-6 text-white" />
                     </div>
                   </div>
