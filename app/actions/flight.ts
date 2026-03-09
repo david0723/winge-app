@@ -43,8 +43,8 @@ export async function searchFlight(flightNumber: string, date: string) {
         departureCity: flight.departure?.airport?.municipalityName || flight.departure?.airport?.iata || "Unknown",
         arrivalCity: flight.arrival?.airport?.municipalityName || flight.arrival?.airport?.iata || "Unknown",
         airline: flight.airline?.name || "Unknown Airline",
-        departureTime: flight.departure?.scheduledTimeLocal || null,
-        arrivalTime: flight.arrival?.scheduledTimeLocal || null,
+        departureTime: flight.departure?.scheduledTime?.local || flight.departure?.scheduledTimeLocal || null,
+        arrivalTime: flight.arrival?.scheduledTime?.local || flight.arrival?.scheduledTimeLocal || null,
       }
     };
   } catch (error) {
